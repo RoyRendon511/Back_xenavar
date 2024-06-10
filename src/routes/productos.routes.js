@@ -7,7 +7,7 @@ const router = Router()
 router.get('/productos',getProductos);
 router.get('/productos/:id',getProductos);
 router.get('/productos/tipo/:tipo',authRequired,getProductosPorTipo);
-router.post('/productos',subirImagen.single('imagen'),createProducto);
+router.post('/productos',authRequired,subirImagen.single('imagen'),createProducto);
 router.put('/productos/:id',authRequired,subirImagen.single('imagen'),updateProducto);
 router.delete('/productos/:id',authRequired,deleteProducto);
 
