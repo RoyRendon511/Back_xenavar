@@ -4,9 +4,12 @@ import cors from 'cors';
 import authRoutes from './routes/auth.routes.js';
 import cookieParser from "cookie-parser";
 import productoRoutes from './routes/productos.routes.js';
+import mongoose from "mongoose";
+
+const conexion = process.env.DB_DATABASE
+mongoose.connect(conexion).then()
 
 const app = express();
-
 app.use(cors({ 
     origin: process.env.FRONTEND_URL, // Cambiar esto a la URL de tu frontend en producción
     credentials: true 

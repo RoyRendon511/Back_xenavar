@@ -1,14 +1,14 @@
 {
   "name": "crud_react_xena",
   "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
+  "description": "API de productos",
+  "main": "src/index.js",
   "type": "module",
   "scripts": {
     "dev": "nodemon src/index.js"
   },
   "keywords": [],
-  "author": "",
+  "author": "Franco",
   "license": "ISC",
   "dependencies": {
     "@fortawesome/free-brands-svg-icons": "^6.5.2",
