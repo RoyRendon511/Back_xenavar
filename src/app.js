@@ -11,9 +11,10 @@ mongoose.connect(conexion).then()
 
 const app = express();
 app.use(cors({ 
-    origin: process.env.FRONTEND_URL, // Cambiar esto a la URL de tu frontend en producción
+    origin: 'http://localhost:5174',
     credentials: true 
-})); 
+}));
+
 app.use(morgan('dev'));
 app.use(express.json());
 app.use(cookieParser());
