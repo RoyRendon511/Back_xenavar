@@ -3,17 +3,29 @@ import * as fs from 'fs';
 
 // Obtener productos
 export const getProductos = async (req, res) => {
-    try {
-        const { id } = req.params;
-        console.log('getProductos called with id:', id);
-        const rows = (id === undefined) ? await productosModel.find() : await productosModel.findById(id);
-        return res.status(200).json({ status: true, data: rows });
-    } catch (error) {
-        console.log('Error in getProductos:', error);
-        return res.status(500).json({ status: false, errors: [error.message] });
-    }
-};
+  try {
+      const { id } = req.params;
+      console.log('getProductos called with id:', id);
+      
+      let rows;
+      if (id === undefined) {
+          console.log('Fetching all products');
+          rows = await productosModel.find();
+      } else {
+          console.log(`Fetching product with id: ${id}`);
+          rows = await productosModel.findById(id);
+      }
 
+      if (!rows) {
+          return res.status(404).json({ status: false, errors: ['Product not found'] });
+      }
+
+      return res.status(200).json({ status: true, data: rows });
+  } catch (error) {
+      console.log('Error in getProductos:', error);
+      return res.status(500).json({ status: false, errors: [error.message] });
+  }
+};
 // Validar producto
 const validar = (nombre, descripcion, precio, cantidad, imagen, tipo, marca, sevalida) => {
     let errors = [];

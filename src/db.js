@@ -6,7 +6,7 @@ export const connectDB = async () => {
     await mongoose.connect(process.env.MONGODB_URI, {
       useNewUrlParser: true,
       useUnifiedTopology: true,
-      serverSelectionTimeoutMS: 10000, // Esperar hasta 10 segundos para conectarse
+      serverSelectionTimeoutMS: 15000, // Esperar hasta 10 segundos para conectarse
       socketTimeoutMS: 45000, // Tiempo de espera de socket
     });
 
@@ -15,7 +15,7 @@ export const connectDB = async () => {
     });
 
     mongoose.connection.on('error', (err) => {
-      console.log(err.message);
+      console.log('Mongoose connection error:', err.message);
     });
 
     mongoose.connection.on('disconnected', () => {
@@ -29,6 +29,6 @@ export const connectDB = async () => {
 
     console.log("Connected to MongoDB Atlas");
   } catch (error) {
-    console.log("Could not connect to MongoDB Atlas: ", error);
+    console.log("Could not connect to MongoDB Atlas: ", error.message);
   }
 };
