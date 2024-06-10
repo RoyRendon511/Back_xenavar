@@ -1,8 +1,9 @@
-import mongoose from "mongoose";
+import 'dotenv/config';
+import mongoose from 'mongoose';
 
 export const connectDB = async () => {
   try {
-    await mongoose.connect('mongodb+srv://ti43243:Francost15@cluster0.gonyppz.mongodb.net/merndb?retryWrites=true&w=majority&appName=Cluster0', {
+    await mongoose.connect(process.env.MONGODB_URI, {
       useNewUrlParser: true,
       useUnifiedTopology: true,
       serverSelectionTimeoutMS: 10000, // Esperar hasta 10 segundos para conectarse

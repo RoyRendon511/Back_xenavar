@@ -8,7 +8,7 @@ import productoRoutes from './routes/productos.routes.js';
 const app = express();
 
 app.use(cors({ 
-    origin: 'http://localhost:5173', // Cambiar esto a la URL de tu frontend en producción
+    origin: process.env.FRONTEND_URL, // Cambiar esto a la URL de tu frontend en producción
     credentials: true 
 })); 
 app.use(morgan('dev'));
