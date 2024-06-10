@@ -3,10 +3,11 @@ import mongoose from 'mongoose';
 
 export const connectDB = async () => {
   try {
+    console.log('Attempting to connect to MongoDB...');
     await mongoose.connect(process.env.MONGODB_URI, {
       useNewUrlParser: true,
       useUnifiedTopology: true,
-      serverSelectionTimeoutMS: 15000, // Esperar hasta 10 segundos para conectarse
+      serverSelectionTimeoutMS: 20000, // Incrementado a 20 segundos
       socketTimeoutMS: 45000, // Tiempo de espera de socket
     });
 

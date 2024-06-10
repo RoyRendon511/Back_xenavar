@@ -41,34 +41,29 @@ export const register = async (req, res) => {
 export const login = async (req, res) => {
     const { email, password } = req.body;
     try {
-        console.log('Login request received with:', req.body);
-
-        const userFound = await User.findOne({ email });
-        if (!userFound) {
-            console.log('User not found with email:', email);
-            return res.status(400).json({ message: "Usuario no encontrado" });
-        }
-
-        const isMatch = await bcrypt.compare(password, userFound.password);
-        if (!isMatch) {
-            console.log('Password does not match for email:', email);
-            return res.status(400).json({ message: "Contraseña incorrecta" });
-        }
-
-        const token = await createAccessToken({ id: userFound._id });
-        res.cookie('token', token);
-        res.json({
-            id: userFound.id,
-            username: userFound.username,
-            email: userFound.email,
-            createdAt: userFound.createdAt,
-            updateAt: userFound.updatedAt,
-        });
+      console.log('Attempting to find user with email:', email);
+      const userFound = await User.findOne({ email });
+      console.log('User found:', userFound);
+  
+      if (!userFound) return res.status(400).json({ message: "Usuario no encontrado" });
+  
+      const isMatch = await bcrypt.compare(password, userFound.password);
+      if (!isMatch) return res.status(400).json({ message: "Contraseña incorrecta" });
+  
+      const token = await createAccessToken({ id: userFound._id });
+      res.cookie('token', token);
+      res.json({
+        id: userFound.id,
+        username: userFound.username,
+        email: userFound.email,
+        createdAt: userFound.createdAt,
+        updateAt: userFound.updatedAt,
+      });
     } catch (error) {
-        console.log('Error in login:', error);
-        res.status(500).json({ message: error.message });
+      console.log('Error in login:', error);
+      res.status(500).json({ message: error.message });
     }
-};
+  };
 
 export const logout = (req, res) => {
     res.cookie("token", "", {
